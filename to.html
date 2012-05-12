@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="content">
+	<div class="mode">
+		<img src="/media/case{{ mode }}.png"/>
+	</div>
+
+<form method="post">
+
+	<label for="id_email">こそっと知らせてあげたい相手のメールアドレスを入力してください。</label><br/>
+	{% if error %}<strong class="error">{{ error }}</strong><br/>{% endif %}
+	<br/>
+	<input type="email" name="email" id="id_email" value="{{ email }}" placeholder="相手のメールアドレス"/>
+	<input type="hidden" name="mode" value="{{ mode }}"/>
+	<input type="image" id="id_submit" src="/media/button.png" alt="こっそり知らせる" />
+</form>
+
+<p class="exemption">
+※人間関係に亀裂が生じたり離婚したりするなど、本サービスを利用したことにより生じたいかなる損害にも、コソリップ及びcapybalaは責任を負いかねますのでご了承ください。
+</p>
+</div>
+{% endblock %}
+
+

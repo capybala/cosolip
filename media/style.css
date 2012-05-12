@@ -1,0 +1,101 @@
+
+header, footer, article, section, nav {
+	display: block;
+}
+
+html, body, div, ul, li, form, h1, h2 {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+body {
+	width: 640px;
+	background-color: #668f04;
+	color: #fff;
+}
+
+a {
+	color: #fff;
+}
+
+img {
+	border: none;
+}
+
+h1 {
+	padding-left: 10px;
+}
+
+.content {
+	padding: 0 50px;
+}
+
+.index {
+	margin-top: -50px;
+}
+
+div.bar {
+	width: 100%;
+	height: 10px;
+	background-image: url(/media/bar.gif);
+	background-repeat: x;
+	margin-bottom: 20px;
+}
+
+.buttons li {
+	float: left;
+	width: 270px;
+}
+
+.buttons {
+	overflow: hidden;
+}
+
+footer {
+	padding: 20px;
+	text-align: center;
+}
+
+address {
+	font-style: normal;
+}
+
+.error {
+	color: orange;
+}
+
+.exemption {
+	font-size: small;
+}
+
+#id_email {
+	width: 350px;
+	height: 40px;
+	font-size: 24px;
+}
+
+#id_submit {
+	vertical-align: middle;
+}
+
+.mode {
+	text-align: center;
+}
+
+form {
+	margin: 50px 0;
+}
+
+.large {
+	font-size: 150%;
+}
+
+.more {
+	text-align: center;
+	font-size: 150%;
+	margin: 50px 0 20px;
+}
