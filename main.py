@@ -4,25 +4,29 @@
 import os
 import re
 import webapp2 as webapp
-from google.appengine.ext.webapp import util, template
+from google.appengine.ext.webapp import template
 from google.appengine.api import mail
 
 messages = {
-        '1': 'チャック…あいてますよ',
-        '2': 'スカート…めくれてますよ',
-        '3': 'ストッキング…伝染してますよ',
-        '4': '歯に…はさまってますよ',
-        '5': '服に…タグついてますよ',
-        '6': 'お口…臭いですよ',
-        }
+    '1': 'チャック…あいてますよ',
+    '2': 'スカート…めくれてますよ',
+    '3': 'ストッキング…伝染してますよ',
+    '4': '歯に…はさまってますよ',
+    '5': '服に…タグついてますよ',
+    '6': 'お口…臭いですよ',
+}
+
 
 class MainHandler(webapp.RequestHandler):
+
     def get(self):
         params = {}
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         self.response.out.write(template.render(path, params))
 
+
 class ToHandler(webapp.RequestHandler):
+
     def get(self):
         mode = self.request.get('mode')
         if not re.search(r'^[1-6]$', mode):
@@ -30,8 +34,8 @@ class ToHandler(webapp.RequestHandler):
             return
 
         params = {
-                'mode': self.request.get('mode'),
-                }
+            'mode': self.request.get('mode'),
+        }
         path = os.path.join(os.path.dirname(__file__), 'to.html')
         self.response.out.write(template.render(path, params))
 
@@ -48,13 +52,13 @@ class ToHandler(webapp.RequestHandler):
             error = 'メールアドレスを入力してください'
         elif (not mail.is_email_valid(email)) or (re.search('^[^@]+@[^@]+$', email) is None):
             error = 'メールアドレスの形式をお確かめください'
-        
+
         if error:
             params = {
-                    'mode': mode,
-                    'email': email,
-                    'error': error,
-                    }
+                'mode': mode,
+                'email': email,
+                'error': error,
+            }
             path = os.path.join(os.path.dirname(__file__), 'to.html')
             self.response.out.write(template.render(path, params))
             return
@@ -64,33 +68,32 @@ class ToHandler(webapp.RequestHandler):
         body = messages[mode]
 
         params = {
-                'base_url': 'http://cosolip.appspot.com/',
-                'mode': mode,
-                }
+            'base_url': 'http://cosolip.appspot.com/',
+            'mode': mode,
+        }
         path = os.path.join(os.path.dirname(__file__), 'mail.html')
         # for debug in browser
-        #self.response.out.write(template.render(path, params))
-        #return 
+        # self.response.out.write(template.render(path, params))
+        # return
         html = template.render(path, params)
-
         mail.send_mail(sender, email, subject, body, html=html)
 
         self.redirect('/sent?mode=%s' % mode)
 
 
-
 class SentHandler(webapp.RequestHandler):
+
     def get(self):
         mode = self.request.get('mode')
         if not re.search(r'^[1-6]$', mode):
             self.response.set_status(404)
             return
+
         params = {
-                'mode': mode,
-                }
+            'mode': mode,
+        }
         path = os.path.join(os.path.dirname(__file__), 'sent.html')
         self.response.out.write(template.render(path, params))
-
 
 
 app = webapp.WSGIApplication(
